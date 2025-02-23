@@ -6,8 +6,8 @@ from .models import Ticket, Project, Organization
 from django.contrib.auth.models import User
 from django.db import transaction
 
-VIRUSTOTAL_API_KEY = '982ce415cf8ef4cae0c948f2eb9dddd2cb68119f7a57d5e95c5af8b66f7dcde7'
-ABUSEIPDB_API_KEY = 'ac0ef01eb849b5a584d4af86908f4a49e2ccf3f0bfca514d0c0b4c95a90f6a461a835b3a052b8274'
+VIRUSTOTAL_API_KEY = ''
+ABUSEIPDB_API_KEY = ''
 
 def create_or_correlate_ticket(title, description, severity, hostname, project_key, organization_id, assignee_username=None):
     """
