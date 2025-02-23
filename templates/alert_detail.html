@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>🔍 Alert Details</h2>
+    <a href="{% url 'alerts_list' %}">⬅️ Back to Alerts</a>
+<h3>{{ alert.title }}</h3>
+<p><strong>Hostname:</strong> {{ alert.hostname }}</p>
+<p><strong>Severity:</strong> {{ alert.priority }}</p>
+<p><strong>SHA256:</strong> {{ alert.sha256 }}</p>
+<p><strong>Domain:</strong> {{ alert.domain }}</p>
+<p><strong>Timestamp:</strong> {{ alert.created_at }}</p>
+<p><strong>Detected By:</strong> {{ alert.detected_by }}</p>
+<p><strong>Action Taken:</strong> {{ alert.action_taken }}</p>
+
+{% if correlated_alerts %}
+    <h3>🔗 Correlated Alerts (Within 1 Hour)</h3>
+    <ul>
+        {% for correlated in correlated_alerts %}
+        <li>
+            <strong>{{ correlated.title }}</strong> - {{ correlated.priority }}
+            (Detected by: {{ correlated.detected_by }})
+            <a href="{% url 'alert_detail' correlated.id %}">View</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No correlated alerts found.</p>
+{% endif %}
+
+
+</body>
+</html>
