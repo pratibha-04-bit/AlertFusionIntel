@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>All Alerts</h2>
+
+{% for ticket in page_obj %}
+    <div>
+        <h3>{{ ticket.title }}</h3>
+        <p><strong>Severity:</strong> {{ ticket.priority }}</p>
+        <p><strong>Hostname:</strong> {{ ticket.hostname }}</p>
+        <p><strong>Description:</strong> {{ ticket.description }}</p>
+
+        {% if ticket.priority == 'HIGH' or ticket.priority == 'CRITICAL' %}
+            <p style="color: red;"><strong>Correlated Alert</strong></p>
+        {% endif %}
+
+        {% if ticket.enrichment %}
+            <h4>Enrichment Data:</h4>
+            <pre>{{ ticket.enrichment }}</pre>
+        {% else %}
+            <p>No enrichment data available.</p>
+        {% endif %}
+    </div>
+    <hr>
+{% endfor %}
+
+{% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+{% endif %}
+{% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+{% endif %}
+
+</body>
+</html>
